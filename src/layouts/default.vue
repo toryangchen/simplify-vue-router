@@ -1,14 +1,15 @@
 <template>
   <div class="layout-default">
-    <side-bar></side-bar>
-    <nav-bar></nav-bar>
-    <div>App Main</div>
-    <!-- <router-view></router-view> -->
+    <side-bar />
+    <div class="main-container">
+      <nav-bar />
+      <router-view />
+    </div>
   </div>
 </template>
 <script>
 import NavBar from "@/components/default/NavBar.vue";
-import SideBar from "@/components/default/SideBar.vue";
+import SideBar from "@/components/default/SideBar";
 
 export default {
   name: "default",
@@ -16,4 +17,17 @@ export default {
 };
 </script>
 
-<style lang="css" scoped></style>
+<style lang="less" scoped>
+.layout-default {
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  .main-container {
+    width: 100%;
+    height: 100%;
+    .nav-container {
+      height: 80px;
+    }
+  }
+}
+</style>
