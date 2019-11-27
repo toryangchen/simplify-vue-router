@@ -1,1 +1,1 @@
-# simplify-vue-router
+# 路由自动生成
