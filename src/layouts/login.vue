@@ -1,11 +1,12 @@
 <template>
   <div>
-    this is dashboard page;
+    <h1>this is login layout</h1>
+    <router-view />
   </div>
 </template>
 <script>
 export default {
-  layout: "blank"
+  name: "login"
 };
 </script>
 

@@ -1,9 +1,13 @@
 <template>
-  <div>404</div>
+  <div>
+    this is 404 page
+  </div>
 </template>
 
 <script>
-export default {};
+export default {
+  layout: "error"
+};
 </script>
 
-<style></style>
+<style lang="css" scoped></style>

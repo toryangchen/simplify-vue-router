@@ -1,11 +1,12 @@
 <template>
   <div>
-    this is dashboard page;
+    <h1>this is error layout</h1>
+    <router-view />
   </div>
 </template>
 <script>
 export default {
-  layout: "blank"
+  name: "error"
 };
 </script>
 
