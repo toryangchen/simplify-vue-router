@@ -19,11 +19,17 @@ Vue.mixin({
       store.commit("SET_LAYOUT", "default");
     }
     next();
-  }
+  },
+});
+
+const layouts = require.context("@/layouts/", true, /\.vue$/, "lazy");
+layouts.keys().forEach(element => {
+  let name = element.match(/.\/(\S*)\.vue$/)[1];
+  Vue.component(name, () => import(`@/layouts/${name}`));
 });
 
 new Vue({
   router,
   store,
-  render: h => h(App)
+  render: h => h(App),
 }).$mount("#app");
