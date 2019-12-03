@@ -1,11 +1,10 @@
 <template>
-  <div>
-    this is dashboard page;
-  </div>
+  <div>this is dashboard page;</div>
 </template>
 <script>
 export default {
-  layout: "blank"
+  layout: "blank",
+  metaInfo: { title: "dashboardPage" }
 };
 </script>
 

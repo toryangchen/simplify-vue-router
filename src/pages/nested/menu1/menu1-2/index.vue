@@ -5,7 +5,9 @@
   </div>
 </template>
 <script>
-export default {};
+export default {
+  metaInfo: { title: "menu1-2page" }
+};
 </script>
 
 <style lang="less" scoped></style>

@@ -1,11 +1,10 @@
 <template>
-  <div>
-    this is first page;
-  </div>
+  <div>this is first page;</div>
 </template>
 <script>
 export default {
-  layout: "login"
+  layout: "login",
+  metaInfo: { title: "indexPage" }
 };
 </script>
 

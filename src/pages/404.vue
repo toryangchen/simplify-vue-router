@@ -1,12 +1,11 @@
 <template>
-  <div>
-    this is 404 page
-  </div>
+  <div>this is 404 page</div>
 </template>
 
 <script>
 export default {
-  layout: "error"
+  layout: "error",
+  metaInfo: { title: "404page" }
 };
 </script>
 
