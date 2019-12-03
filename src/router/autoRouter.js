@@ -2,21 +2,20 @@ import Vue from "vue";
 import Router from "vue-router";
 Vue.use(Router);
 
+// 构造函数
+var AutoRouter = function() {
+  this.pages = require.context("@/pages/", true, /\.vue$/, "lazy");
+  this.keys = this.pages.keys().map(item => {
+    return item.replace("./", "").split("/");
+  });
+};
+
 // 解决思路：
 // 由于获取到的keys是扁平化的数组，因此，将每个该文件名拆开：
 // 如 ["./nested/menu1/index.vue"] => [".", "nested", "menu1", "index.vue"]
-var pages;
-var autoRouter = function(lazy = true) {
+AutoRouter.prototype.getRouter = function() {
   var router = [];
-  if (lazy) {
-    pages = require.context("@/pages/", true, /\.vue$/, "lazy");
-  } else {
-    pages = require.context("@/pages/", true, /\.vue$/);
-  }
-  let keys = pages.keys().map(item => {
-    return item.replace("./", "").split("/");
-  });
-  for (const key of keys) {
+  for (const key of this.keys) {
     router.push({
       name: this.getName(key),
       path: this.getPath(key),
@@ -27,7 +26,7 @@ var autoRouter = function(lazy = true) {
 };
 
 // 获取路由的 component, 这里是懒加载
-autoRouter.prototype.getComponent = key => {
+AutoRouter.prototype.getComponent = function(key) {
   let filename = "";
   if (key.length === 1) {
     filename = key[0].replace(".vue", "");
@@ -40,9 +39,8 @@ autoRouter.prototype.getComponent = key => {
 // 获取路由的meta, 会生成一个带有路由层级的数据结构, 一旦调用该函数,则会失去懒加载的功能
 // DFS，
 // 这里返回一个promise对象
-autoRouter.prototype.createCell = async keys => {
+AutoRouter.prototype.createCell = async function() {
   let res = [];
-
   // cells表示要返回的数组, path表示路径数组
   var saveInCells = (cells, path, metaInfo) => {
     if (path.length === 0) {
@@ -70,15 +68,16 @@ autoRouter.prototype.createCell = async keys => {
       saveInCells(cells[index].children, path.slice(1), metaInfo);
     }
   };
-  for (const key of keys) {
-    let component = await pages("./" + key.join("/"));
+
+  for (const key of this.keys) {
+    let component = await this.pages("./" + key.join("/"));
     saveInCells(res, key, component.default.metaInfo);
   }
   return res;
 };
 
 // 获取路由的 name
-autoRouter.prototype.getName = key => {
+AutoRouter.prototype.getName = function(key) {
   if (key.length === 1) {
     return key[0].replace(".vue", "");
   }
@@ -90,7 +89,7 @@ autoRouter.prototype.getName = key => {
 };
 
 // 获取路由信息的path
-autoRouter.prototype.getPath = key => {
+AutoRouter.prototype.getPath = function(key) {
   if (key.length === 1) {
     if (key[0] === "index.vue") {
       return "/";
@@ -105,4 +104,11 @@ autoRouter.prototype.getPath = key => {
   }
 };
 
-export default new Router({ routes: new autoRouter() });
+var auto = new AutoRouter();
+let routes = auto.getRouter();
+
+auto.createCell().then(res => {
+  console.log(res);
+});
+
+export default new Router({ routes });
