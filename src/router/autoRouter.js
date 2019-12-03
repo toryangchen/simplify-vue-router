@@ -42,7 +42,7 @@ AutoRouter.prototype.getComponent = function(key) {
 AutoRouter.prototype.createCell = async function() {
   let res = [];
   // cells表示要返回的数组, path表示路径数组
-  var saveInCells = (cells, path, metaInfo) => {
+  var saveInCells = (cells, path, originInfo) => {
     if (path.length === 0) {
       return;
     }
@@ -50,28 +50,37 @@ AutoRouter.prototype.createCell = async function() {
       return cell.name && cell.name === path[0];
     });
     if (index === -1) {
+      // 如果当前cells中没有该路径，创建路径
       let cell = {
         name: path[0],
       };
       if (path.length > 1) {
         cell.children = [];
         cells.push(cell);
-        saveInCells(cells[cells.length - 1].children, path.slice(1), metaInfo);
+        saveInCells(
+          cells[cells.length - 1].children,
+          path.slice(1),
+          originInfo,
+        );
       } else {
-        cell.metaInfo = metaInfo;
-        cells.push(cell);
+        cells.push(Object.assign(cell, originInfo));
       }
     } else {
+      // 如果当前cells中有该路径，使用该路径
       if (!cells[index].hasOwnProperty("children")) {
         cells[index].children = [];
       }
-      saveInCells(cells[index].children, path.slice(1), metaInfo);
+      saveInCells(cells[index].children, path.slice(1), originInfo);
     }
   };
 
   for (const key of this.keys) {
     let component = await this.pages("./" + key.join("/"));
-    saveInCells(res, key, component.default.metaInfo);
+    let originInfo = {
+      path: this.getPath(key),
+      metaInfo: component.default.metaInfo,
+    };
+    saveInCells(res, key, originInfo);
   }
   return res;
 };
