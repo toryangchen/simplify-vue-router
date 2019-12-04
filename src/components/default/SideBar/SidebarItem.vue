@@ -7,8 +7,8 @@
         :index="item.name || item.children[0].name"
         @click.native="onClick(item)"
       >
-        <span :class="`el-icon-${getIcon(item)}`" />
-        <span slot="title">{{ getTitle(item) }}</span>
+        <span :class="`el-icon-${getIcon(item, false)}`" />
+        <span slot="title">{{ getTitle(item, true) }}</span>
       </el-menu-item>
       <el-submenu v-else :key="index" :index="item.name">
         <template slot="title">
@@ -40,7 +40,6 @@ export default {
         return "";
       };
       let info = getInfo(route, key);
-      console.log(info);
       if (!info) {
         return "";
       }
@@ -51,7 +50,9 @@ export default {
         return route.metaInfo.icon;
       }
       if (route.hasOwnProperty("children") && route.children.length === 1) {
-        return route.children[0].metaInfo.icon;
+        return route.children[0].metaInfo
+          ? route.children[0].metaInfo.icon
+          : this.getIcon(route.children[0]);
       }
     },
     getTitle(route) {
@@ -59,7 +60,9 @@ export default {
         return route.metaInfo.title;
       }
       if (route.hasOwnProperty("children") && route.children.length === 1) {
-        return route.children[0].metaInfo.title;
+        return route.children[0].metaInfo
+          ? route.children[0].metaInfo.title
+          : this.getTitle(route.children[0]);
       }
     },
     onClick(item) {

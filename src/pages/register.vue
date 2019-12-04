@@ -4,7 +4,7 @@
 <script>
 export default {
   layout: "register",
-  metaInfo: { title: "registerPage", hidden: true }
+  metaInfo: { hidden: true }
 };
 </script>
 

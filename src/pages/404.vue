@@ -5,7 +5,7 @@
 <script>
 export default {
   layout: "error",
-  metaInfo: { title: "404page", hidden: true }
+  metaInfo: { hidden: true }
 };
 </script>
 

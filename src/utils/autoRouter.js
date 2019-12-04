@@ -100,6 +100,9 @@ AutoRouter.prototype.createCell = async function() {
 
   for (const key of this.keys) {
     let component = await this.pages("./" + key.join("/"));
+    if (component.default.metaInfo && component.default.metaInfo.hidden) {
+      continue;
+    }
     let originInfo = {
       path: this.getPath(key),
       metaInfo: component.default.metaInfo,

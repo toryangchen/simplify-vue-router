@@ -3,7 +3,7 @@
 </template>
 <script>
 export default {
-  metaInfo: { title: "Menu1-3", weight: 5 }
+  metaInfo: { title: "Menu1-3", weight: 5, hidden: true }
 };
 </script>
 

@@ -4,7 +4,7 @@
 <script>
 export default {
   layout: "login",
-  metaInfo: { title: "indexPage", hidden: true }
+  metaInfo: { hidden: true }
 };
 </script>
 
