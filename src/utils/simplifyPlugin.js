@@ -6,15 +6,22 @@ import AutoRouter from "./autoRouter.js";
 const layouts = require.context("@/layouts/", true, /\.vue$/, "lazy");
 const SimplifyPlugin = {};
 
+let route = [
+  {
+    path: "/",
+    redirect: "/dashboard",
+  },
+];
+
 const auto = new AutoRouter();
 const router = new Router({
-  routes: auto.getRouter()
+  routes: route.concat(auto.getRouter()),
 });
 
 const options = {
   router,
   store,
-  render: h => h(App)
+  render: h => h(App),
 };
 
 SimplifyPlugin.install = function(Vue, options) {
@@ -31,7 +38,7 @@ SimplifyPlugin.install = function(Vue, options) {
         store.commit("SET_LAYOUT", "default");
       }
       next();
-    }
+    },
   });
 
   layouts.keys().forEach(element => {

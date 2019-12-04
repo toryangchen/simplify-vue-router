@@ -3,7 +3,12 @@
 </template>
 <script>
 export default {
-  metaInfo: { title: "Menu1-1", weight: 2, mainTitle: ["Nested", "Menu1"] }
+  metaInfo: {
+    title: "Menu1-1",
+    weight: 2,
+    nested: { title: "Nested", icon: "menu" },
+    menu1: { title: "Menu1", icon: "" }
+  }
 };
 </script>
 

@@ -16,23 +16,15 @@
 import SidebarItem from "./SidebarItem.vue";
 export default {
   components: { SidebarItem },
+  data() {
+    return {
+      routes: []
+    };
+  },
   created() {
     this.$createCell.then(res => {
-      console.log(res);
+      this.routes = res;
     });
-  },
-  computed: {
-    routes() {
-      return this.$router.options.routes;
-    }
-  },
-  methods: {
-    handleOpen(key, keyPath) {
-      console.log(key, keyPath);
-    },
-    handleClose(key, keyPath) {
-      console.log(key, keyPath);
-    }
   }
 };
 </script>

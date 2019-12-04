@@ -136,7 +136,7 @@ AutoRouter.prototype.getPath = function(key) {
   if (key[key.length - 1] === "index.vue") {
     return "/" + key.slice(0, key.length - 1).join("/");
   } else {
-    return "/" + key.join("/");
+    return "/" + key.join("/").replace(".vue", "");
   }
 };
 

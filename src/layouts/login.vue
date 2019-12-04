@@ -10,4 +10,8 @@ export default {
 };
 </script>
 
-<style lang="less" scoped></style>
+<style lang="less" scoped>
+h1 {
+  margin-bottom: 20px;
+}
+</style>

@@ -1,12 +1,9 @@
 <template>
-  <div>
-    <h1>this is blank layout</h1>
-    <router-view />
-  </div>
+  <div>nested -> menu1 -> menu1-4</div>
 </template>
 <script>
 export default {
-  name: "blank"
+  metaInfo: { title: "Menu1-4", weight: 6 }
 };
 </script>
 

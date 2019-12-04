@@ -1,16 +1,20 @@
 <template>
   <div class="navbar">
-    <breadcrumb class="breadcrumb-container"></breadcrumb>
+    <div>
+      <router-link to="/login">登录</router-link>
+    </div>
+    <div>
+      <router-link to="/register">注册</router-link>
+    </div>
+    <div>
+      <router-link to="/404">404</router-link>
+    </div>
   </div>
 </template>
 
 <script>
-import Breadcrumb from "./Breadcrumb";
 export default {
-  name: "navbar",
-  components: {
-    Breadcrumb,
-  },
+  name: "navbar"
 };
 </script>
 <style lang="less" scoped>
@@ -20,8 +24,10 @@ export default {
   height: 50px;
   box-shadow: 0 1px 4px rgba(0, 21, 41, 0.08);
 
-  .breadcrumb-container {
-    float: left;
+  div {
+    line-height: 50px;
+    margin: 0 10px;
+    float: right;
   }
 }
 </style>
