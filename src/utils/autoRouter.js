@@ -19,7 +19,7 @@ AutoRouter.prototype.getRouter = function() {
     router.push({
       name: this.getName(key),
       path: this.getPath(key),
-      component: this.getComponent(key)
+      component: this.getComponent(key),
     });
   }
   return router;
@@ -52,7 +52,7 @@ AutoRouter.prototype.createCell = async function() {
     if (index === -1) {
       // 如果当前cells中没有该路径，创建路径
       let cell = {
-        name: path[0]
+        name: path[0],
       };
       if (path.length > 1) {
         cell.children = [];
@@ -60,7 +60,7 @@ AutoRouter.prototype.createCell = async function() {
         saveInCells(
           cells[cells.length - 1].children,
           path.slice(1),
-          originInfo
+          originInfo,
         );
       } else {
         cells.push(Object.assign(cell, originInfo));
@@ -74,14 +74,41 @@ AutoRouter.prototype.createCell = async function() {
     }
   };
 
+  var sortCells = cells => {
+    cells.sort((item1, item2) => {
+      if (item1.hasOwnProperty("children")) {
+        sortCells(item1.children);
+      }
+      if (item2.hasOwnProperty("children")) {
+        sortCells(item2.children);
+      }
+      return getWeight(item1) - getWeight(item2);
+    });
+  };
+
+  var getWeight = cell => {
+    if (cell["metaInfo"] && cell.metaInfo.weight) {
+      return cell.metaInfo.weight;
+    } else {
+      if (cell.hasOwnProperty("children")) {
+        return getWeight(cell.children[0]);
+      } else {
+        return Number.MAX_SAFE_INTEGER;
+      }
+    }
+  };
+
   for (const key of this.keys) {
     let component = await this.pages("./" + key.join("/"));
     let originInfo = {
       path: this.getPath(key),
-      metaInfo: component.default.metaInfo
+      metaInfo: component.default.metaInfo,
     };
     saveInCells(res, key, originInfo);
   }
+
+  sortCells(res);
+
   return res;
 };
 

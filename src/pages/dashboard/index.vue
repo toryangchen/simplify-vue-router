@@ -3,8 +3,7 @@
 </template>
 <script>
 export default {
-  layout: "blank",
-  metaInfo: { title: "dashboardPage" }
+  metaInfo: { title: "Dashboard", icon: "location", weight: 1 }
 };
 </script>
 
