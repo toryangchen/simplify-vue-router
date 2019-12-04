@@ -19,7 +19,7 @@ AutoRouter.prototype.getRouter = function() {
     router.push({
       name: this.getName(key),
       path: this.getPath(key),
-      component: this.getComponent(key),
+      component: this.getComponent(key)
     });
   }
   return router;
@@ -52,7 +52,7 @@ AutoRouter.prototype.createCell = async function() {
     if (index === -1) {
       // 如果当前cells中没有该路径，创建路径
       let cell = {
-        name: path[0],
+        name: path[0]
       };
       if (path.length > 1) {
         cell.children = [];
@@ -60,7 +60,7 @@ AutoRouter.prototype.createCell = async function() {
         saveInCells(
           cells[cells.length - 1].children,
           path.slice(1),
-          originInfo,
+          originInfo
         );
       } else {
         cells.push(Object.assign(cell, originInfo));
@@ -78,7 +78,7 @@ AutoRouter.prototype.createCell = async function() {
     let component = await this.pages("./" + key.join("/"));
     let originInfo = {
       path: this.getPath(key),
-      metaInfo: component.default.metaInfo,
+      metaInfo: component.default.metaInfo
     };
     saveInCells(res, key, originInfo);
   }
@@ -113,11 +113,11 @@ AutoRouter.prototype.getPath = function(key) {
   }
 };
 
-var auto = new AutoRouter();
-let routes = auto.getRouter();
+// var auto = new AutoRouter();
+// let routes = auto.getRouter();
 
-auto.createCell().then(res => {
-  console.log(res);
-});
+// auto.createCell().then(res => {
+//   console.log(res);
+// });
 
-export default new Router({ routes });
+export default AutoRouter;

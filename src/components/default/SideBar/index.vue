@@ -16,6 +16,11 @@
 import SidebarItem from "./SidebarItem.vue";
 export default {
   components: { SidebarItem },
+  created() {
+    this.$createCell.then(res => {
+      console.log(res);
+    });
+  },
   computed: {
     routes() {
       return this.$router.options.routes;
