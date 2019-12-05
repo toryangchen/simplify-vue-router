@@ -1,8 +1,11 @@
 <template>
-  <div>
-    <h1>this is error layout</h1>
-    <router-view />
-  </div>
+  <el-container>
+    <el-header>Error page</el-header>
+    <el-main>
+      <router-view />
+    </el-main>
+    <el-footer>error page / 404 page layout</el-footer>
+  </el-container>
 </template>
 <script>
 export default {
@@ -10,8 +13,5 @@ export default {
 };
 </script>
 
-<style lang="less" scoped>
-h1 {
-  margin-bottom: 20px;
-}
-</style>
+<style lang="less" scoped></style>
+

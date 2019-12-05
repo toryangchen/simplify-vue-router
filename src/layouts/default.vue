@@ -1,11 +1,18 @@
 <template>
-  <div class="layout-default">
-    <side-bar />
-    <div class="main-container">
-      <nav-bar />
-      <router-view />
-    </div>
-  </div>
+  <el-container class="layout-default">
+    <el-aside width="210px">
+      <side-bar />
+    </el-aside>
+    <el-container>
+      <el-header>
+        <nav-bar />
+      </el-header>
+      <el-main>
+        <router-view />
+      </el-main>
+      <el-footer>this is default footer</el-footer>
+    </el-container>
+  </el-container>
 </template>
 <script>
 import NavBar from "@/components/default/NavBar.vue";
@@ -20,14 +27,18 @@ export default {
 <style lang="less" scoped>
 .layout-default {
   height: 100%;
-  display: flex;
-  flex-direction: row;
-  .main-container {
-    width: 100%;
+  .el-aside {
     height: 100%;
-    .nav-container {
-      height: 80px;
-    }
+    background: #545c64;
+  }
+  .el-header {
+    padding: 0px;
+  }
+
+  .el-footer {
+    background: #cccccc;
+    text-align: center;
+    line-height: 60px;
   }
 }
 </style>

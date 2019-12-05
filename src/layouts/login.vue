@@ -1,17 +1,15 @@
 <template>
-  <div>
-    <h1>this is login layout</h1>
-    <router-view />
-  </div>
+  <el-container>
+    <el-header>Login page</el-header>
+    <el-main>
+      <router-view />
+    </el-main>
+    <el-footer>Login page footer layout</el-footer>
+  </el-container>
 </template>
 <script>
 export default {
   name: "login"
 };
 </script>
-
-<style lang="less" scoped>
-h1 {
-  margin-bottom: 20px;
-}
-</style>
+<style lang="less" scoped></style>
