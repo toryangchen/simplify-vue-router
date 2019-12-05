@@ -22,6 +22,7 @@ export default {
     };
   },
   created() {
+    console.log(this.$router.options.routes);
     this.$createCell.then(res => {
       this.routes = res;
     });

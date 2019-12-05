@@ -1,9 +1,10 @@
 <template>
-  <div>this is first page;</div>
+  <div>this is index page</div>
 </template>
+
 <script>
 export default {
-  layout: "login",
+  layout: "blank",
   metaInfo: { hidden: true }
 };
 </script>

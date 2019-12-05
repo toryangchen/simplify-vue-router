@@ -20,6 +20,7 @@ AutoRouter.prototype.getRouter = function() {
       name: this.getName(key),
       path: this.getPath(key),
       component: this.getComponent(key),
+      props: /^_/.test(key[key.length - 1]),
     });
   }
   return router;
@@ -118,28 +119,39 @@ AutoRouter.prototype.createCell = async function() {
 // 获取路由的 name
 AutoRouter.prototype.getName = function(key) {
   if (key.length === 1) {
-    return key[0].replace(".vue", "");
+    return key[0].replace(/^_/, "").replace(".vue", "");
   }
   if (key[key.length - 1] === "index.vue") {
     return key[key.length - 2];
   } else {
-    return key[key.length - 1].replace(".vue", "");
+    return key[key.length - 1].replace(/^_/, "").replace(/\.vue$/, "");
   }
 };
 
 // 获取路由信息的path
 AutoRouter.prototype.getPath = function(key) {
   if (key.length === 1) {
-    if (key[0] === "index.vue") {
-      return "/";
+    if (/index\.vue$/.test(key[0])) {
+      return /^_/.test(key[0]) ? "/:id" : "/";
     } else {
-      return "/" + key[0].replace(".vue", "");
+      let path = key[0].replace(".vue", "");
+      return /^_/.test(path)
+        ? "/" + path.replace(/^_/, "") + "/:id"
+        : "/" + path;
     }
   }
-  if (key[key.length - 1] === "index.vue") {
-    return "/" + key.slice(0, key.length - 1).join("/");
+  if (/index\.vue$/.test(key[key.length - 1])) {
+    let end = "";
+    if (/^_/.test(key[key.length - 1])) {
+      end = "/:id";
+    }
+    return "/" + key.slice(0, key.length - 1).join("/") + end;
   } else {
-    return "/" + key.join("/").replace(".vue", "");
+    let endPath = key[key.length - 1].replace(/\.vue$/, "");
+    if (/^_/.test(endPath)) {
+      endPath = endPath.replace(/^_/, "") + "/:id";
+    }
+    return "/" + key.slice(0, key.length - 1).join("/") + "/" + endPath;
   }
 };
 

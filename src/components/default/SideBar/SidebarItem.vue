@@ -7,8 +7,8 @@
         :index="item.name || item.children[0].name"
         @click.native="onClick(item)"
       >
-        <span :class="`el-icon-${getIcon(item, false)}`" />
-        <span slot="title">{{ getTitle(item, true) }}</span>
+        <span :class="`el-icon-${getIcon(item)}`" />
+        <span slot="title">{{ getTitle(item) }}</span>
       </el-menu-item>
       <el-submenu v-else :key="index" :index="item.name">
         <template slot="title">
