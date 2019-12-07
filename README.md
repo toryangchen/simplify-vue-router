@@ -1,6 +1,6 @@
 # 换个优雅地方式写Vue的路由配置
 
-[原文链接](https://www.toryang.top/?p=251);
+[原文链接](https://www.toryang.top/archives/251)
 
 ## Installation
 
