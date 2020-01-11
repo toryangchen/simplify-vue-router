@@ -4,7 +4,7 @@
 
 ## Installation
 
-将项目utils/下的内容拷贝到你的项目中；
+将项目`utils/`下的内容拷贝到你的项目中；
 
 改变`main.js`中引入方式：
 
